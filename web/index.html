@@ -1,0 +1,43 @@
+<html>
+    <head>
+      <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+      <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+      <!--для перезагрузки контента без обновления страницы-->
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+
+      <py-env>
+        - paths:
+          - /example.py
+      </py-env>
+      <script>
+        function digitalClock() {
+            var date = new Date();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            //* добавление ведущих нулей */
+            if (hours < 10) hours = "0" + hours;
+            if (minutes < 10) minutes = "0" + minutes;
+            if (seconds < 10) seconds = "0" + seconds;
+            document.getElementById("id_clock").innerHTML = hours + ":" + minutes + ":" + seconds;
+            setTimeout("digitalClock()", 1000);
+        }
+      </script>
+    </head>
+
+    <body>
+      <h1>Let's print random numbers</h1>
+      <p>Doe's lucky number is <label id="lucky"></label></p>
+      <p>Doe's lucky number is <label id="data"></label></p>
+      <div id="id_clock"></div>
+      <script>digitalClock();</script>
+
+
+      <py-script>
+        from example import print_data
+        from example import generate_random_number
+        pyscript.write('lucky', generate_random_number())
+        pyscript.write('data', print_data())
+      </py-script>
+    </body>
+</html>
